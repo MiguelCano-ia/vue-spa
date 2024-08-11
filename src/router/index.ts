@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/modules/landing/pages/HomePage.vue';
+import NotFound404 from '@/modules/common/pages/NotFound404.vue';
 
 const router = createRouter({
   history: createWebHistory( import.meta.env.BASE_URL ), // Permite navegar por la historia del navegador
   routes: [
+    // Landing
     {
       path: '/',
       name: 'landing',
@@ -29,6 +31,12 @@ const router = createRouter({
           name: 'contact',
           component: () => import('@/modules/landing/pages/ContactPage.vue'),
         },
+        {
+          path: '/pokemon/:id',
+          name: 'pokemon',
+          props: true,
+          component: () => import('@/modules/pokemons/pages/PokemonPage.vue'),
+        }
       ],
     },
 
@@ -36,7 +44,27 @@ const router = createRouter({
 
     {
       path: '/auth',
-      component: () => import('@/modules/auth/pages/LoginPage.vue'),
+      redirect: { name: 'login' }, // Redirige a la ruta login cuando se accede a /auth
+      component: () => import('@/modules/auth/layouts/AuthLayout.vue'),
+      children: [
+        {
+          path: '/login', // sin el slash tendriamos que acceder a /auth/login
+          name: 'login',
+          component: () => import('@/modules/auth/pages/LoginPage.vue'),
+        },
+        {
+          path: '/register',
+          name: 'register',
+          component: () => import('@/modules/auth/pages/RegisterPage.vue'),
+        },
+      ],
+    },
+
+    // Not found
+
+    {
+      path: '/:pathMatch(.*)*', // Cualquier ruta que no exista
+      component: NotFound404,
     }
   ],
 });

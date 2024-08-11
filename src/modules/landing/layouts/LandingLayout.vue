@@ -1,17 +1,21 @@
 <template>
   <div class="flex flex-col h-screen">
     <!-- Header -->
-    <header class="flex items-center h-14 px-4 border-b border-gray-300 sm:h-16 md:px-6 lg:px-8">
+    <header class="flex items-center h-14 px-4 border-b border-gray-300 sm:h-16 md:px-6 lg:px-8 justify-between">
       <div>
         <a class="flex items-center gap-2 font-semibold" href="#">
           <img alt="Vue logo" class="logo" src="@/assets/vuejs.svg" width="40" height="40" />
         </a>
       </div>
-      <nav class="ml-auto space-x-4 flex items-center h-10 sm:space-x-6">
+      <nav class=" space-x-4 flex items-center h-10 sm:space-x-6 ">
         <RouterLink to="/"> Home </RouterLink>
         <RouterLink to="/features"> Features </RouterLink>
         <RouterLink to="/pricing"> Pricing </RouterLink>
         <RouterLink to="/contact"> Contact </RouterLink>
+      </nav>
+      <nav class="space-x-4">
+        <RouterLink to="/pokemon/1"> Pokemon </RouterLink>
+        <RouterLink to="/auth"> Login </RouterLink>
       </nav>
     </header>
     <!-- Fin Header -->
