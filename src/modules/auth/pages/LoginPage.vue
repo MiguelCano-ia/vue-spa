@@ -21,7 +21,7 @@
       <a href="#" class="hover:underline">Forgot Password?</a>
     </div>
     <!-- Login Button -->
-    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full">Login</button>
+    <button @click="onLogin" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full">Login</button>
   </form>
   <!-- Sign up  Link -->
   <div class="mt-6 text-blue-500 text-center">
@@ -30,4 +30,12 @@
 </template>
 
 <script setup lang="ts">
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
+
+  const onLogin = () => {
+    localStorage.setItem('userId', 'ABC-123')
+    router.replace({ name: 'home' }); // Redirección a la página de inicio sin historial.
+  }
 </script>
