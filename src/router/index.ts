@@ -1,20 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/modules/landing/pages/HomePage.vue';
 import NotFound404 from '@/modules/common/pages/NotFound404.vue';
+import isAuthenticatedGuard from '@/modules/auth/guards/is-authenticated.guard';
 
 const router = createRouter({
-  history: createWebHistory( import.meta.env.BASE_URL ), // Permite navegar por la historia del navegador
+  history: createWebHistory(import.meta.env.BASE_URL), // Permite navegar por la historia del navegador
   routes: [
     // Landing
     {
       path: '/',
       name: 'landing',
       component: () => import('@/modules/landing/layouts/LandingLayout.vue'),
-      children: [ // Rutas hijas
+      children: [
+        // Rutas hijas
         {
           path: '/', // Cuando estamos aqui se muestra el componente Home
           name: 'home',
-          component: HomePage
+          component: HomePage,
         },
         {
           path: '/features',
@@ -34,13 +36,14 @@ const router = createRouter({
         {
           path: '/pokemon/:id',
           name: 'pokemon',
-          props: ( route ) => {
+          beforeEnter: [isAuthenticatedGuard], // Se ejecuta antes de entrar a la ruta
+          props: (route) => {
             const id = +route.params.id; // Convierte el id a numero
 
             return isNaN(id) ? { id: 1 } : { id }; // Si no es un numero retorna 1
           },
           component: () => import('@/modules/pokemons/pages/PokemonPage.vue'),
-        }
+        },
       ],
     },
 
@@ -69,7 +72,7 @@ const router = createRouter({
     {
       path: '/:pathMatch(.*)*', // Cualquier ruta que no exista
       component: NotFound404,
-    }
+    },
   ],
 });
 

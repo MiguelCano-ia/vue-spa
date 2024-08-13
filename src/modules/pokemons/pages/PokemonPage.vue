@@ -22,11 +22,11 @@
 </template>
 
 <script setup lang="ts">
-  interface Props {
-    id: string;
-  }
+interface Props {
+  id: string;
+}
 
-  const props = defineProps<Props>();
+const props = defineProps<Props>();
 
-  console.log({ id: props.id });
+console.log({ id: props.id });
 </script>
