@@ -24,7 +24,16 @@
 
     <!-- Main -->
     <main class="flex-1 flex items-center justify-center">
-      <RouterView />
+      <!-- keep alive: Permite mantener el estado de los componentes cuando se navega entre rutas, gracias al keep alive 
+        Ademas, :is="Component" permite renderizar el componente que se está navegando 
+      -->
+      <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </router-view>
+
+      <!-- <RouterView /> -->
       <!-- Aquí se renderizarán las páginas -->
     </main>
     <!-- Fin Main -->

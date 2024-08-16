@@ -10,12 +10,14 @@ import {
   onRenderTracked,
   onRenderTriggered,
   onUnmounted,
-  onUpdated,
+  onUpdated, ref,
 } from 'vue';
 
 export default defineComponent({
   setup: () => {
     console.log('setup'); // El setup tambien forma parte del ciclo de vida, se ejecuta antes de onMounted
+
+    const counter = ref(0);
 
     onMounted(() => {
       console.log('onMounted'); // Se ejecuta cuando el componente es montado
@@ -50,5 +52,9 @@ export default defineComponent({
     onDeactivated(() => {
       console.log('onDeactivated'); // Se ejecuta cuando el componente es desactivado
     });
+
+    return {
+      counter,
+    };
   },
 });
